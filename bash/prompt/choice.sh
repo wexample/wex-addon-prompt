@@ -13,6 +13,8 @@ promptChoice() {
   local CHOICE_ESCAPE
   local CHOICE_SELECTED=0
 
+  wex var/clear -n=CHOICE_TYPED_SELECTION
+
   # Split and fill up array
   mapfile -t CHOICES < <(wex string/split -t="${CHOICES}")
 
@@ -108,6 +110,27 @@ _promptChoiceRender() {
 
             return
           else
+            local TYPED_SELECTION
+
+            COUNTER=0
+            CHOICE_SELECTED=
+            TYPED_SELECTION="$(wex var/get -n=CHOICE_TYPED_SELECTION)${ARROW}"
+
+            for ITEM in ${CHOICES[@]}
+            do
+              ((COUNTER++))
+
+              if [[ "${ITEM}" = "${TYPED_SELECTION}"* ]];then
+                CHOICE_SELECTED=${COUNTER}
+              fi
+            done
+
+            if [ -n "${CHOICE_SELECTED}" ];then
+              wex var/set -n=CHOICE_TYPED_SELECTION -v="${TYPED_SELECTION}"
+            else
+              wex var/clear -n=CHOICE_TYPED_SELECTION
+            fi
+
             _promptChoiceUpdate
           fi
         ;;
