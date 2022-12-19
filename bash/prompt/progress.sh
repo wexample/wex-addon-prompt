@@ -22,10 +22,6 @@ promptProgress() {
   WEX_FILE_MESSAGE_FUNCTION="${WEX_DIR_ROOT}includes/function/messages-progress.sh"
   . "${WEX_FILE_MESSAGE_FUNCTION}"
 
-  if [ "${PERCENTAGE}" = "0" ];then
-    echo ""
-  fi
-
   # Manage cursor position
   if [ "${NEW_LINE}" != "true" ];then
     local PROGRESS_BAR_RUNNING=$(wex var/get -n=PROGRESS_BAR_RUNNING -d=false)
