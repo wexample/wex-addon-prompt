@@ -18,9 +18,11 @@ promptProgress() {
 
   WEX_PROGRESS_CURRENT_PERCENTAGE=${PERCENTAGE}
 
-  WEX_FILE_MESSAGE_FUNCTION_ORIG="${WEX_FILE_MESSAGE_FUNCTION}"
-  WEX_FILE_MESSAGE_FUNCTION="${WEX_DIR_ROOT}includes/function/messages-progress.sh"
-  . "${WEX_FILE_MESSAGE_FUNCTION}"
+  if [ "${WEX_FILE_MESSAGE_FUNCTION_ORIG}" = "" ];then
+    export WEX_FILE_MESSAGE_FUNCTION_ORIG="${WEX_FILE_MESSAGE_FUNCTION}"
+    WEX_FILE_MESSAGE_FUNCTION="${WEX_DIR_ROOT}includes/function/messages-progress.sh"
+    . "${WEX_FILE_MESSAGE_FUNCTION}"
+  fi
 
   # Manage cursor position
   if [ "${NEW_LINE}" != "true" ];then
