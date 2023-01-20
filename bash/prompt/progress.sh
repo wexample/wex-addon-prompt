@@ -18,12 +18,6 @@ promptProgress() {
 
   WEX_PROGRESS_CURRENT_PERCENTAGE=${PERCENTAGE}
 
-  if [ "${WEX_FILE_MESSAGE_FUNCTION_ORIG}" = "" ];then
-    export WEX_FILE_MESSAGE_FUNCTION_ORIG="${WEX_FILE_MESSAGE_FUNCTION}"
-    WEX_FILE_MESSAGE_FUNCTION="${WEX_DIR_ROOT}includes/function/messages-progress.sh"
-    . "${WEX_FILE_MESSAGE_FUNCTION}"
-  fi
-
   # Manage cursor position
   if [ "${NEW_LINE}" != "true" ];then
     local PROGRESS_BAR_RUNNING=$(wex var/get -n=PROGRESS_BAR_RUNNING -d=false)
@@ -64,10 +58,6 @@ promptProgress() {
   if [ "${PERCENTAGE}" = "100" ];then
     echo ""
     echo ""
-
-    WEX_FILE_MESSAGE_FUNCTION="${WEX_FILE_MESSAGE_FUNCTION_ORIG}"
-    unset WEX_FILE_MESSAGE_FUNCTION_ORIG
-    . "${WEX_FILE_MESSAGE_FUNCTION}"
 
     if [ "${NEW_LINE}" != "true" ];then
       wex var/set -n=PROGRESS_BAR_RUNNING -v=false
