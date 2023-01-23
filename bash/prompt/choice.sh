@@ -5,13 +5,14 @@ promptChoiceArgs() {
     'choices c "Choices array" true'
     'question q "Question to ask" true "Choose a value (number / arrows)"'
     'separator s "Separator for choices splitting" true ,'
+    'default d "Default value index" false 0'
   )
 }
 
 promptChoice() {
   local CHOICE_BACKSPACE
   local CHOICE_ESCAPE
-  local CHOICE_SELECTED=0
+  local CHOICE_SELECTED=${DEFAULT}
 
   wex var/clear -n=CHOICE_TYPED_SELECTION
 
