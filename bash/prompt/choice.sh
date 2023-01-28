@@ -16,6 +16,11 @@ promptChoice() {
 
   wex var/clear -n=CHOICE_TYPED_SELECTION
 
+  if [ -z "${CHOICES}" ]; then
+    _wexLog "No dump found."
+    return
+  fi
+
   # Split and fill up array
   mapfile -t CHOICES < <(wex string/split -t="${CHOICES}")
 
