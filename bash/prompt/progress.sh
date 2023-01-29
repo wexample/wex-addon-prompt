@@ -7,6 +7,7 @@ promptProgressArgs() {
     'description d "Description" false'
     'status s "Status" false'
     'new_line nl "New line at end" false'
+    'max m "Max percentage, default 100" false 100'
   )
 }
 
@@ -37,7 +38,7 @@ promptProgress() {
   # Compute progress position
   for ((i=0;i<=WIDTH;i++));
   do
-     if [ $(((((i * PRECISION) / WIDTH) * 100) / PRECISION)) -le "${PERCENTAGE}" ];then
+     if [ $(((((i * PRECISION) / WIDTH) * ${MAX}) / PRECISION)) -le "${PERCENTAGE}" ];then
        MESSAGE+="${WEX_COLOR_CYAN}"
      else
        MESSAGE+="${WEX_COLOR_GRAY}"
@@ -46,16 +47,23 @@ promptProgress() {
      MESSAGE+='■'
   done
 
-  MESSAGE+="${WEX_COLOR_RESET}] "${PERCENTAGE}'%'"\n"
+  local PERCENTAGE_INFO
+  if [ "${MAX}" != "100" ];then
+    PERCENTAGE_INFO="${PERCENTAGE} / ${MAX}"
+  else
+    PERCENTAGE_INFO="${PERCENTAGE}'%'"
+  fi
+
+  MESSAGE+="${WEX_COLOR_RESET}] "${PERCENTAGE_INFO}"\n"
 
   if [ "${STATUS}" != "" ];then
-    MESSAGE+="     ${WEX_COLOR_GRAY}> ${WEX_COLOR_CYAN}${STATUS}${WEX_COLOR_RESET}"
+    MESSAGE+="     ${WEX_COLOR_GRAY}> ${WEX_COLOR_CYAN}    ${STATUS}${WEX_COLOR_RESET}"
   fi
 
   printf "%b          \r" "${MESSAGE}"
 
   # Complete
-  if [ "${PERCENTAGE}" = "100" ];then
+  if [ "${PERCENTAGE}" = "${MAX}" ];then
     echo ""
     echo ""
 
