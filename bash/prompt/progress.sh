@@ -51,7 +51,7 @@ promptProgress() {
   if [ "${MAX}" != "100" ];then
     PERCENTAGE_INFO="${PERCENTAGE} / ${MAX}"
   else
-    PERCENTAGE_INFO="${PERCENTAGE}'%'"
+    PERCENTAGE_INFO="${PERCENTAGE}%"
   fi
 
   MESSAGE+="${WEX_COLOR_RESET}] "${PERCENTAGE_INFO}"\n"
