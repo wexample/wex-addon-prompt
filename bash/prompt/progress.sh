@@ -57,7 +57,7 @@ promptProgress() {
   MESSAGE+="${WEX_COLOR_RESET}] "${PERCENTAGE_INFO}"\n"
 
   if [ "${STATUS}" != "" ];then
-    MESSAGE+="     ${WEX_COLOR_GRAY}> ${WEX_COLOR_CYAN}    ${STATUS}${WEX_COLOR_RESET}"
+    MESSAGE+="     ${WEX_COLOR_GRAY}>${WEX_COLOR_CYAN} ${STATUS}${WEX_COLOR_RESET}"
   fi
 
   printf "%b          \r" "${MESSAGE}"
