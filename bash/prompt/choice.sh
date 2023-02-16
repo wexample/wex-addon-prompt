@@ -22,7 +22,7 @@ promptChoice() {
   fi
 
   # Split and fill up array
-  mapfile -t CHOICES < <(wex string/split -t="${CHOICES}")
+  mapfile -t CHOICES < <(wex default::string/split -t="${CHOICES}")
 
   CHOICE_BACKSPACE=$(cat << eof
 0000000 005177
