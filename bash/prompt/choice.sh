@@ -14,7 +14,7 @@ promptChoice() {
   local CHOICE_ESCAPE
   local CHOICE_SELECTED=${DEFAULT}
 
-  wex var/clear -n=CHOICE_TYPED_SELECTION
+  wex-exec var/clear -n=CHOICE_TYPED_SELECTION
 
   if [ -z "${CHOICES}" ]; then
     _wexLog "No dump found."
@@ -22,7 +22,7 @@ promptChoice() {
   fi
 
   # Split and fill up array
-  mapfile -t CHOICES < <(wex default::string/split -t="${CHOICES}")
+  mapfile -t CHOICES < <(wex-exec default::string/split -t="${CHOICES}")
 
   CHOICE_BACKSPACE=$(cat << eof
 0000000 005177
@@ -111,8 +111,8 @@ _promptChoiceRender() {
 
             local INDEX=$(( CHOICE_SELECTED - 1 ))
             # Save selected values for further usage.
-            wex var/set -n=CHOICE_SELECTED_INDEX -v="${CHOICE_SELECTED}"
-            wex var/set -n=CHOICE_SELECTED_VALUE -v="\"${CHOICES[${INDEX}]}\""
+            wex-exec var/set -n=CHOICE_SELECTED_INDEX -v="${CHOICE_SELECTED}"
+            wex-exec var/set -n=CHOICE_SELECTED_VALUE -v="\"${CHOICES[${INDEX}]}\""
 
             return
           else
@@ -120,7 +120,7 @@ _promptChoiceRender() {
 
             COUNTER=0
             CHOICE_SELECTED=
-            TYPED_SELECTION="$(wex var/get -n=CHOICE_TYPED_SELECTION)${ARROW}"
+            TYPED_SELECTION="$(wex-exec var/get -n=CHOICE_TYPED_SELECTION)${ARROW}"
 
             for ITEM in ${CHOICES[@]}
             do
@@ -132,9 +132,9 @@ _promptChoiceRender() {
             done
 
             if [ -n "${CHOICE_SELECTED}" ];then
-              wex var/set -n=CHOICE_TYPED_SELECTION -v="${TYPED_SELECTION}"
+              wex-exec var/set -n=CHOICE_TYPED_SELECTION -v="${TYPED_SELECTION}"
             else
-              wex var/clear -n=CHOICE_TYPED_SELECTION
+              wex-exec var/clear -n=CHOICE_TYPED_SELECTION
             fi
 
             _promptChoiceUpdate

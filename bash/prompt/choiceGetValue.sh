@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 promptChoiceGetValue() {
-  wex var/get -n=CHOICE_SELECTED_VALUE
+  wex-exec var/get -n=CHOICE_SELECTED_VALUE
 }

@@ -13,7 +13,7 @@ promptYn() {
         [Nn]* ) echo false; break;;
         [Yy]* ) echo true; break;;
         "" ) echo true; break;;
-        * ) wex prompt/yn -q="${QUESTION}"; break;;
+        * ) wex-exec prompt/yn -q="${QUESTION}"; break;;
     esac
   done
 }
