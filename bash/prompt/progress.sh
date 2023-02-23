@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptProgressArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'percentage p "Percentage" true'
     'width w "Width" false 30'

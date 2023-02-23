@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptYnArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'question q "Question to ask user" true'
   )

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptChoiceArgs() {
+  # shellcheck disable=SC2034
   _ARGUMENTS=(
     'choices c "Choices array" true'
     'question q "Question to ask" true "Choose a value (number / arrows)"'
