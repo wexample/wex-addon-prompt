@@ -16,15 +16,15 @@ promptProgressArgs() {
 # See : https://www.fileformat.info/info/unicode/char/25a0/index.htm
 promptProgress() {
   local MESSAGE="    ${WEX_COLOR_RESET}["
-  local PRECISION=100;
+  local PRECISION=100
 
   WEX_PROGRESS_CURRENT_PERCENTAGE=${PERCENTAGE}
 
   # Manage cursor position
-  if [ "${NEW_LINE}" != "true" ];then
+  if [ "${NEW_LINE}" != "true" ]; then
     local PROGRESS_BAR_RUNNING=$(wex-exec var/get -n=PROGRESS_BAR_RUNNING -d=false)
 
-    if [ "${PROGRESS_BAR_RUNNING}" = true ];then
+    if [ "${PROGRESS_BAR_RUNNING}" = true ]; then
       # Move cursor up
       printf "\033[1A"
     fi
@@ -32,24 +32,23 @@ promptProgress() {
     wex-exec var/set -n=PROGRESS_BAR_RUNNING -v=true
   fi
 
-  if [ "${DESCRIPTION}" != "" ];then
+  if [ "${DESCRIPTION}" != "" ]; then
     MESSAGE=${DESCRIPTION}"\n"${MESSAGE}
   fi
 
   # Compute progress position
-  for ((i=0;i<=WIDTH;i++));
-  do
-     if [ $(((((i * PRECISION) / WIDTH) * ${MAX}) / PRECISION)) -le "${PERCENTAGE}" ];then
-       MESSAGE+="${WEX_COLOR_CYAN}"
-     else
-       MESSAGE+="${WEX_COLOR_GRAY}"
-     fi
+  for ((i = 0; i <= WIDTH; i++)); do
+    if [ $(((((i * PRECISION) / WIDTH) * ${MAX}) / PRECISION)) -le "${PERCENTAGE}" ]; then
+      MESSAGE+="${WEX_COLOR_CYAN}"
+    else
+      MESSAGE+="${WEX_COLOR_GRAY}"
+    fi
 
-     MESSAGE+='■'
+    MESSAGE+='■'
   done
 
   local PERCENTAGE_INFO
-  if [ "${MAX}" != "100" ];then
+  if [ "${MAX}" != "100" ]; then
     PERCENTAGE_INFO="${PERCENTAGE} / ${MAX}"
   else
     PERCENTAGE_INFO="${PERCENTAGE}%"
@@ -57,22 +56,22 @@ promptProgress() {
 
   MESSAGE+="${WEX_COLOR_RESET}] "${PERCENTAGE_INFO}"\n"
 
-  if [ "${STATUS}" != "" ];then
+  if [ "${STATUS}" != "" ]; then
     MESSAGE+="     ${WEX_COLOR_GRAY}>${WEX_COLOR_CYAN} ${STATUS}${WEX_COLOR_RESET}"
   fi
 
   printf "%b          \r" "${MESSAGE}"
 
   # Complete
-  if [ "${PERCENTAGE}" = "${MAX}" ];then
+  if [ "${PERCENTAGE}" = "${MAX}" ]; then
     echo ""
     echo ""
 
-    if [ "${NEW_LINE}" != "true" ];then
+    if [ "${NEW_LINE}" != "true" ]; then
       wex-exec var/set -n=PROGRESS_BAR_RUNNING -v=false
     fi
   # Ignore the \r and jump to a new line
-  elif [ "${NEW_LINE}" = "true" ];then
+  elif [ "${NEW_LINE}" = "true" ]; then
     echo ""
   fi
 }
