@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptChoiceArgs() {
+  _DESCRIPTION="Ask user to do a choice"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'choices c "Choices array" true'
