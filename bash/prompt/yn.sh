@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptYnArgs() {
+  _DESCRIPTION="Ask user to choose yes or no"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'question q "Question to ask user" true'

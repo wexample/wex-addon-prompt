@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 promptProgressArgs() {
+  _DESCRIPTION="Display a progress bar"
   # shellcheck disable=SC2034
   _ARGUMENTS=(
     'percentage p "Percentage" true'
